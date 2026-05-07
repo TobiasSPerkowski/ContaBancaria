@@ -1,6 +1,6 @@
 namespace ContaBancaria.Console.Models;
 
-public class Conta
+public abstract class Conta
 {
     public int Numero { get; set; }
     public int Agencia { get; set; }
@@ -11,6 +11,7 @@ public class Conta
     {
         if (valor <= 0 || Saldo < valor) 
             return false;
+            
         Saldo -= valor;
         return true;
     }
@@ -24,6 +25,7 @@ public class Conta
     // visualizar
     public override string ToString()
     {
-        return $"Conta: {Numero}\nTitular: {Titular}\nSaldo: {Saldo:C}";
+        return $"Conta: {Numero}\nAgencia: {Agencia}\n"
+                + $"Titular: {Titular}\nSaldo: {Saldo:C}";
     }
 }
