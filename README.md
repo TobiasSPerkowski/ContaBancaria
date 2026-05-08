@@ -12,7 +12,6 @@ O sistema simula operações bancárias utilizando conceitos de POO em C#, inclu
 
 ## Como executar
 
-Clone o repositório:
 ```bash
 git clone https://github.com/TobiasSPerkowski/sistemaBancario.git
 cd sistemaBancario/SistemaBancario.Console
