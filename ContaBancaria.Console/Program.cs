@@ -110,6 +110,9 @@ void Cadastrar()
 
         int agencia = Convert.ToInt32(Console.ReadLine());
 
+        if (agencia <= 0)
+            throw new Exception();
+
         if (opcao == "1")
         {
             Console.Write("Digite o limite: ");
@@ -125,6 +128,9 @@ void Cadastrar()
         {
             Console.Write("Digite o aniversário: ");
             int aniver = Convert.ToInt32(Console.ReadLine());
+
+            if (aniver < 1 || aniver > 31)
+                throw new Exception();
 
             conta = new ContaPoupanca
             (
@@ -188,6 +194,9 @@ void Atualizar()
         Console.Write("Digite a nova agência: ");
         int agencia = Convert.ToInt32(Console.ReadLine());
 
+        if (agencia <= 0)
+            throw new Exception();
+
         if (opcao == "1")
         {
             Console.Write("Digite o novo limite: ");
@@ -204,6 +213,9 @@ void Atualizar()
         {
             Console.Write("Digite o novo aniversário: ");
             int aniver = Convert.ToInt32(Console.ReadLine());
+
+            if (aniver < 1 || aniver > 31)
+                throw new Exception();
 
             conta = new ContaPoupanca
             (

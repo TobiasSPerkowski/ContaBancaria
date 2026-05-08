@@ -118,6 +118,9 @@ public class ContaController : IContaRepository
 
     private void CarregarDados()
     {
+        if (!File.Exists(arquivo))
+            return;
+
         string[] linhas = File.ReadAllLines(arquivo);
 
         foreach (string linha in linhas)
