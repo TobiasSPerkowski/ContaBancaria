@@ -5,8 +5,19 @@ namespace ContaBancaria.Console.Controllers;
 
 public class ContaController : IContaRepository
 {
+    private string arquivo = Path.Combine("Data", "contas.txt");
     private int proxNum = 1;
     private List<Conta> contas = new();
+
+    public ContaController()
+    {
+        // carregando contas e proxNum do arquivo
+        CarregarDados(); 
+
+        // adicionando SalvarDados aa lista de metodos  
+        // executados ao encerrar a aplicacao
+        AppDomain.CurrentDomain.ProcessExit += SalvarDados;
+    }
 
     public Conta? ProcurarPorNumero(int numero)
     {
@@ -104,5 +115,56 @@ public class ContaController : IContaRepository
     private Conta? BuscarNaCollection(int numero)
     {
         return contas.Find(c => c.Numero == numero);
+    }
+
+    private void CarregarDados()
+    {
+        string[] linhas = File.ReadAllLines(arquivo);
+
+        foreach (string linha in linhas)
+        {
+            string[] dados = linha.Split(';');
+
+            string tipo = dados[0];
+
+            if (tipo == "C")
+            {
+                ContaCorrente conta = new
+                (
+                    numero: int.Parse(dados[1]),
+                    agencia: int.Parse(dados[2]),
+                    titular: dados[3],
+                    saldo: decimal.Parse(dados[4]),
+                    limite: decimal.Parse(dados[5])
+                );
+                contas.Add(conta);
+            }
+            else if (tipo == "P")
+            {
+                ContaPoupanca conta = new
+                (
+                    numero: int.Parse(dados[1]),
+                    agencia: int.Parse(dados[2]),
+                    titular: dados[3],
+                    saldo: decimal.Parse(dados[4]),
+                    aniversario: int.Parse(dados[5])
+                );
+                contas.Add(conta);
+            }
+            else if (tipo == "N")
+                proxNum = int.Parse(dados[1]);
+        }
+    }
+
+    private void SalvarDados(object? sender, EventArgs e)
+    {
+        List<string> linhas = [$"N;{proxNum}"];
+
+        foreach (Conta conta in contas)
+        {
+            linhas.Add(conta.ParaArquivo());
+        }
+
+        File.WriteAllLines(arquivo, linhas);
     }
 }

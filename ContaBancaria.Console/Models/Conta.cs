@@ -22,10 +22,13 @@ public abstract class Conta
             Saldo += valor; 
     }
 
-    // visualizar
+    // formatar para visualizacao
     public override string ToString()
     {
         return $"Conta: {Numero}\nAgencia: {Agencia}\n"
                 + $"Titular: {Titular}\nSaldo: {Saldo:C}";
     }
+
+    // formatar para salvamento
+    public abstract string ParaArquivo();
 }
