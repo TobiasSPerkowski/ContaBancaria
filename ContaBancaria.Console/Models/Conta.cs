@@ -16,10 +16,13 @@ public abstract class Conta
         return true;
     }
 
-    public virtual void Depositar(decimal valor)
+    public virtual bool Depositar(decimal valor)
     {
-        if (valor > 0) 
-            Saldo += valor; 
+        if (valor <= 0)   
+            return false; 
+        
+        Saldo += valor;
+        return true;
     }
 
     // formatar para visualizacao

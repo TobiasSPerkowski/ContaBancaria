@@ -90,8 +90,7 @@ public class ContaController : IContaRepository
         Conta? c = BuscarNaCollection(numero);
         if (c == null) return false;
 
-        c.Depositar(valor);
-        return true;
+        return c.Depositar(valor);
     }
 
     public bool Transferir(int numOrigem, int numDestino, decimal valor)
